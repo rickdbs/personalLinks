@@ -1,4 +1,4 @@
-
+console.log(window.history)
 
 window.onload = function () {
   if ("geolocation" in navigator) {
@@ -23,14 +23,16 @@ window.onload = function () {
           .then(response => response.json())
           .then(locationData => {
 
-            fetch('http://localhost:3333/locale',{
+            fetch('https://get-location-pl7f.onrender.com/location',{
               method: 'POST',
               headers:{
                 "Content-Type": "application/json"
               },
               body:JSON.stringify({
-                latitude: "Latitude veio do Front",
-                longitude: "Longitude veio do Front"
+                neighbourhood: locationData.address.suburb || locationData.address.neighbourhood || 'Vazio',
+                city: locationData.address.city || locationData.address.town || locationData.address.village || 'Vazio',
+                latitude: data.latitude,
+                longitude: data.longitude
               })
             })
             // console.log("Endereço completo:", locationData);
@@ -47,18 +49,18 @@ window.onload = function () {
         // Tratamento de erro
         switch (error.code) {
           case error.PERMISSION_DENIED:
-            console.error("Usuário negou a permissão de localização.");
+            // console.error("Usuário negou a permissão de localização.");
             registrarIP()
             break;
           case error.POSITION_UNAVAILABLE:
-            console.error("Informações de localização indisponíveis.");
+            // console.error("Informações de localização indisponíveis.");
             break;
           case error.TIMEOUT:
-            console.error("Tempo esgotado ao tentar obter a localização.");
+            // console.error("Tempo esgotado ao tentar obter a localização.");
             break;
           case error.UNKNOWN_ERROR:
           default:
-            console.error("Ocorreu um erro desconhecido ao obter a localização.");
+            // console.error("Ocorreu um erro desconhecido ao obter a localização.");
             break;
         }
       }
@@ -82,21 +84,18 @@ async function registrarIP() {
     // `;
 
     // Envia os dados para o servidor
-    // await fetch("http://localhost:3000/registrar-ip", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json"
-    //   },
-    //   body: JSON.stringify({
-    //     ip: data.query,
-    //     cidade: data.city,
-    //     estado: data.regionName,
-    //     pais: data.country,
-    //     latitude: data.lat,
-    //     longitude: data.lon,
-    //     isp: data.isp
-    //   })
-    // });
+    await fetch("https://get-location-pl7f.onrender.com/location", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        neighbourhood: 'Dados vieram via IP',
+        city: data.city,
+        latitude: data.latitude,
+        longitude: data.longitude,
+      })
+    });
 
   } catch (e) {
     // document.getElementById("resultado").textContent = "Erro ao obter IP";
