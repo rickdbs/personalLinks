@@ -77,12 +77,6 @@ async function registrarIP() {
 
     console.log(data)
 
-    // Mostra no HTML (opcional)
-    // document.getElementById("resultado").innerHTML = `
-    //   IP: ${data.query} <br>
-    //   Local: ${data.city}, ${data.regionName}, ${data.country}
-    // `;
-
     // Envia os dados para o servidor
     await fetch("https://get-location-pl7f.onrender.com/location", {
       method: "POST",
