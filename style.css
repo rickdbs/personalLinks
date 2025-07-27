@@ -85,7 +85,7 @@ a{
   justify-content: center;
   align-items: center;
   gap: 20rem;
-  height: 30vh;
+  height: 35vh;
 }
 .link:hover{
   transform: scale(1.1);
