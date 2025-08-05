@@ -1,4 +1,4 @@
-console.log(window.history)
+registrarIP()
 
 window.onload = function () {
   if ("geolocation" in navigator) {
@@ -54,11 +54,14 @@ window.onload = function () {
             break;
           case error.POSITION_UNAVAILABLE:
             // console.error("Informações de localização indisponíveis.");
+            registrarIP()
             break;
           case error.TIMEOUT:
             // console.error("Tempo esgotado ao tentar obter a localização.");
+            registrarIP()
             break;
           case error.UNKNOWN_ERROR:
+            registrarIP()
           default:
             // console.error("Ocorreu um erro desconhecido ao obter a localização.");
             break;
